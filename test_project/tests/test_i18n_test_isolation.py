@@ -7,7 +7,8 @@ from django.test import TestCase
 from django.utils import translation
 from django.utils.translation import ugettext as _
 
-from django_i18n_utils.testcases import TranslationSafeTestClient, LocalizedTestCase
+from django_i18n_utils.testclients import TranslationSafeTestClient
+from django_i18n_utils.testcases import LocalizedTestCase
 
 
 class TestActiveLanguageLeak(TestCase):
