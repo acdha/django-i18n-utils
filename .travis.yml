@@ -1,0 +1,11 @@
+language: python
+python:
+    - "2.6"
+    - "2.7"
+    - "3.3"
+    - "3.4"
+install:
+    - "pip install Django"
+    - "pip install ."
+script:
+    - PYTHONPATH=. DJANGO_SETTINGS_MODULE=test_project.settings django-admin.py test
