@@ -2,6 +2,9 @@
 Django Internationalization Utils
 =================================
 
+.. image:: https://travis-ci.org/acdha/django-i18n-utils.svg?branch=master
+    :target: https://travis-ci.org/acdha/django-i18n-utils
+
 
 Data Processing
 ~~~~~~~~~~~~~~~
