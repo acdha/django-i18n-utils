@@ -7,7 +7,7 @@ from django.test.client import Client as TestClient
 from django.utils import translation
 
 
-class TranslationSafeClient(TestClient):
+class TranslationSafeTestClient(TestClient):
     """TestClient subclass which preserves the active language
 
     Django's LocaleMiddleware deactivates the current language at the end
@@ -24,7 +24,7 @@ class TranslationSafeClient(TestClient):
             kwargs['HTTP_ACCEPT_LANGUAGE'] = active_lang
 
         try:
-            return super(TranslationSafeClient, self).request(*args, **kwargs)
+            return super(TranslationSafeTestClient, self).request(*args, **kwargs)
         finally:
             translation.activate(active_lang)
 
@@ -83,4 +83,4 @@ class LocalizedTestCase(TestCase):
 
     #: We need our custom TestClient subclass to ensure that the correct
     #: translation is activated:
-    client_class = TranslationSafeClient
+    client_class = TranslationSafeTestClient
