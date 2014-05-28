@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name="django-i18n-utils",
-      version="1.0.0",
+      version="1.1.0",
 
       packages=["django_i18n_utils"],
 
@@ -25,4 +25,4 @@ setup(name="django-i18n-utils",
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: Software Development :: Localization',
       ],
-      url="http://packages.python.org/django-i18n/")
+      url="https://pypi.python.org/pypi/django-i18n-utils")

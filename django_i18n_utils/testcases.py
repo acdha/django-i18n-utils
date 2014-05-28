@@ -10,7 +10,7 @@ from django.utils import translation
 class TranslationSafeClient(TestClient):
     """TestClient subclass which preserves the active language
 
-    django-localeurl's middleware deactivates the current language at the end
+    Django's LocaleMiddleware deactivates the current language at the end
     of each request, which resets it to the default. This is fine in normal
     operation but annoying if your unit tests want to confirm that translated
     text was present in the response as _(foo) will return the system default
@@ -55,15 +55,13 @@ class LocalizedTestCaseMetaclass(type):
     @staticmethod
     def activate_language(lang, method):
         def inner(self, *args, **kwargs):
-            translation.activate(lang)
+            with translation.override(lang):
+                self.active_language = lang
 
-            self.active_language = lang
-
-            try:
-                return method(self, *args, **kwargs)
-            finally:
-                del self.active_language
-                translation.deactivate_all()
+                try:
+                    return method(self, *args, **kwargs)
+                finally:
+                    del self.active_language
 
         return inner
 
