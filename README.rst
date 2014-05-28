@@ -24,7 +24,7 @@ Testing
 TranslationSafeTestClient
 -------------------------
 
-Django `TestClient` subclass which resets the active translation after each request to avoid leaking translation state across tests, causing hard-to-debug side-effects like loading fixtures in the wrong language using `django-modeltranslation<https://pypi.python.org/pypi/django-modeltranslation>`_.
+Django `TestClient` subclass which resets the active translation after each request to avoid leaking translation state across tests, causing hard-to-debug side-effects like loading fixtures in the wrong language using `django-modeltranslation <https://pypi.python.org/pypi/django-modeltranslation>`_.
 
 Usage::
 
