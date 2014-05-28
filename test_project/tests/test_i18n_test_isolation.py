@@ -1,10 +1,8 @@
 # encoding: utf-8
 from __future__ import absolute_import, print_function, unicode_literals
 
-import unittest
-
 from django.test import TestCase
-from django.utils import translation
+from django.utils import translation, unittest
 from django.utils.translation import ugettext as _
 
 from django_i18n_utils.testclients import TranslationSafeTestClient

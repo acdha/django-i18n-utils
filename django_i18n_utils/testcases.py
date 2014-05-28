@@ -26,7 +26,7 @@ class LocalizedTestCaseMetaclass(type):
                 trans_name = '%s_%s' % (method_name, lang)
                 decorated_f = meta.activate_language(lang, method)
                 # nose magic: see http://stackoverflow.com/questions/5176396/
-                decorated_f.__name__ = trans_name
+                decorated_f.__name__ = str(trans_name)
                 class_dict[trans_name] = decorated_f
 
         return type.__new__(meta, class_name, base_classes, class_dict)
