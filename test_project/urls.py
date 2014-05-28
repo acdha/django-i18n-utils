@@ -1,8 +1,7 @@
 # encoding: utf-8
 from __future__ import absolute_import, print_function, unicode_literals
 
-from django.conf.urls import patterns, include, url
-
+from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
 
 urlpatterns = i18n_patterns('',
