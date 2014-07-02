@@ -5,8 +5,11 @@ from functools import update_wrapper
 
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models.fields import SlugField
 
+from .formfields import UnicodeSlugFormField
 from .utils import clean_unicode
+from .validators import unicode_slug_validator
 
 
 class UnicodeNormalizerMixin(object):
@@ -95,3 +98,10 @@ def unicode_safe_repr(format_string, field_names):
     return inner
 
 
+class UnicodeSlugField(SlugField):
+    default_validators = [unicode_slug_validator]
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': UnicodeSlugFormField}
+        defaults.update(kwargs)
+        return super(UnicodeSlugField, self).formfield(**defaults)
