@@ -6,6 +6,7 @@ from functools import update_wrapper
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.fields import SlugField
+from django.utils import six
 
 from .formfields import UnicodeSlugFormField
 from .utils import clean_unicode
@@ -70,7 +71,7 @@ def unicode_safe_repr(format_string, field_names):
             …
     """
 
-    assert isinstance(format_string, unicode), 'format_string must be Unicode!'
+    assert isinstance(format_string, six.text_type), 'format_string must be Unicode!'
 
     def inner(cls):
         def safe_repr(self):
