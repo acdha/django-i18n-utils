@@ -105,10 +105,3 @@ class UnicodeSlugField(SlugField):
         defaults = {'form_class': UnicodeSlugFormField}
         defaults.update(kwargs)
         return super(UnicodeSlugField, self).formfield(**defaults)
-
-
-try:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], [r'^django_i18n_utils\.models\.UnicodeSlugField$'])
-except ImportError:
-    pass
