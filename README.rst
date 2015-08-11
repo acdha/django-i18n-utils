@@ -27,7 +27,9 @@ Testing
 TranslationSafeTestClient
 -------------------------
 
-Django `TestClient` subclass which resets the active translation after each request to avoid leaking translation state across tests, causing hard-to-debug side-effects like loading fixtures in the wrong language using `django-modeltranslation <https://pypi.python.org/pypi/django-modeltranslation>`_.
+Django `TestClient` subclass which resets the active translation after each request to avoid leaking
+translation state across tests, causing hard-to-debug side-effects like loading fixtures in the wrong
+language using `django-modeltranslation <https://pypi.python.org/pypi/django-modeltranslation>`_.
 
 Usage::
 
@@ -40,6 +42,20 @@ Usage::
             # default language active
             self.client.get('/pt/myview') # Portuguese active when the view executes
             # default language active again
+
+
+TranslationSafeTestCase
+-----------------------
+
+Django `TestCase` subclass which uses `TranslationSafeTestClient` to avoid test failures caused by previous
+tests leaving an unexpected locale active.
+
+Usage::
+
+    from django_i18n_utils.testcases import TranslationSafeTestCase
+
+    class MyTestCase(TranslationSafeTestCase):
+        …
 
 
 LocalizedTestCase

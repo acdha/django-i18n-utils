@@ -8,6 +8,12 @@ from django.utils import translation
 from .testclients import TranslationSafeTestClient
 
 
+class TranslationSafeTestCase(TestCase):
+    """TestCase which resets completely after Django's localemiddlware"""
+
+    client_class = TranslationSafeTestClient
+
+
 class LocalizedTestCaseMetaclass(type):
     """Replace _localized methods with per-language wrappers
 
@@ -45,7 +51,7 @@ class LocalizedTestCaseMetaclass(type):
         return inner
 
 
-class LocalizedTestCase(TestCase):
+class LocalizedTestCase(TranslationSafeTestCase):
     """multi-lingual testcase helper
 
     This uses :class:`LocalizedTestCaseMetaclass` to replace any test method
@@ -59,7 +65,3 @@ class LocalizedTestCase(TestCase):
     """
 
     __metaclass__ = LocalizedTestCaseMetaclass
-
-    #: We need our custom TestClient subclass to ensure that the correct
-    #: translation is activated:
-    client_class = TranslationSafeTestClient

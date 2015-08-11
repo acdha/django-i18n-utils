@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name="django-i18n-utils",
-      version="1.5.2",
+      version="1.5.3",
 
       packages=["django_i18n_utils"],
 
