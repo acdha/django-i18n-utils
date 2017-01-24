@@ -9,7 +9,6 @@ from django.utils import translation
 from django.utils.translation import ugettext as _
 
 from django_i18n_utils.testcases import LocalizedTestCase
-from django_i18n_utils.testclients import TranslationSafeTestClient
 
 
 class TestActiveLanguageLeak(TestCase):
@@ -59,43 +58,9 @@ class TestLocaleMiddlewareLeak(TestCase):
         # Confirm the leak hasn't been fixed:
         self.assertEqual('Enero', _('January'))
 
-        resp = self.client.get('/en/month-name/', follow=True)
+        self.client.get('/en/month-name/', follow=True)
+
         # Merely accessing an Enlish page will reset the locale:
-        self.assertEqual('January', _('January'))
-
-
-class TestTranslationSafeTestClient(TestCase):
-    client_class = TranslationSafeTestClient
-
-    @classmethod
-    def setUpClass(cls):
-        super(TestTranslationSafeTestClient, cls).setUpClass()
-
-        # Avoid cross test-case contamination:
-        translation.deactivate_all()
-
-    def test_part_1(self):
-        resp = self.client.get('/es/month-name/', follow=True)
-        self.assertEqual(resp.content.decode('utf-8'), 'Enero')
-
-    def test_part_2(self):
-        self.assertEqual('January', _('January'))
-
-        resp = self.client.get('/en/month-name/', follow=True)
-        self.assertEqual(resp.content.decode('utf-8'), 'January')
-
-        self.assertEqual('January', _('January'))
-
-    def test_part_3(self):
-        self.assertEqual('January', _('January'))
-
-        resp = self.client.get('/es/month-name/', follow=True)
-        self.assertEqual(resp.content.decode('utf-8'), 'Enero')
-
-        self.assertEqual('January', _('January'))
-
-    def test_part_4(self):
-        translation.deactivate_all()
         self.assertEqual('January', _('January'))
 
 
@@ -107,12 +72,12 @@ class TestLocalizedTestCase(LocalizedTestCase):
         # Avoid cross test-case contamination:
         translation.deactivate_all()
 
-    def test_localized(self):
+    def test_localized_basic(self):
         if translation.get_language() == 'es':
             self.assertEqual('Enero', _('January'))
         elif translation.get_language() == 'en':
             self.assertEqual('January', _('January'))
 
-    def test_localized(self):
+    def test_localized_client(self):
         resp = self.client.get('/month-name/', follow=True)
         self.assertEqual(resp.content.decode('utf-8'), _('January'))

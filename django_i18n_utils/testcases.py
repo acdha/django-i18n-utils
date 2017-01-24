@@ -7,14 +7,6 @@ from django.conf import settings
 from django.test import TestCase
 from django.utils import translation
 
-from .testclients import TranslationSafeTestClient
-
-
-class TranslationSafeTestCase(TestCase):
-    """TestCase which resets completely after Django's localemiddlware"""
-
-    client_class = TranslationSafeTestClient
-
 
 class LocalizedTestCaseMetaclass(type):
     """Replace _localized methods with per-language wrappers
@@ -53,7 +45,7 @@ class LocalizedTestCaseMetaclass(type):
         return inner
 
 
-class LocalizedTestCase(six.with_metaclass(LocalizedTestCaseMetaclass, TranslationSafeTestCase)):
+class LocalizedTestCase(six.with_metaclass(LocalizedTestCaseMetaclass, TestCase)):
     """multi-lingual testcase helper
 
     This uses :class:`LocalizedTestCaseMetaclass` to replace any test method
@@ -61,7 +53,6 @@ class LocalizedTestCase(six.with_metaclass(LocalizedTestCaseMetaclass, Translati
     settings.LANGUAGES: e.g. `test_foo` will be replaced with (`test_foo_ar`,
     `test_foo_en`, …)
 
-    When the test method is called, the correct language will be activated and
-    the test client will set the HTTP Accept-Language header as expected. For
-    convenience, self.active_language will be set appropriately
+    When the test method is called, the correct language will be activated and a
+    property named self.active_language will be to the active language
     """
