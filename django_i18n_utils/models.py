@@ -1,5 +1,6 @@
 # encoding: utf-8
-from __future__ import absolute_import, print_function, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 from functools import update_wrapper
 
@@ -82,7 +83,7 @@ def unicode_safe_repr(format_string, field_names):
 
                 if hasattr(v, 'pk'):
                     field_values.append(repr(v))
-                elif isinstance(v, basestring):
+                elif isinstance(v, six.string_types):
                     field_values.append(v.encode('unicode_escape'))
                 else:
                     field_values.append(v)

@@ -1,17 +1,20 @@
 # encoding: utf-8
-from __future__ import absolute_import, print_function, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
 from django.test import TestCase
-from django.utils import translation, unittest
+from django.utils import translation
 from django.utils.translation import ugettext as _
 
 from django_i18n_utils.testclients import TranslationSafeTestClient
 from django_i18n_utils.testcases import LocalizedTestCase
 
+import unittest
 
 class TestActiveLanguageLeak(TestCase):
     @classmethod
     def setUpClass(cls):
+        super(TestActiveLanguageLeak, cls).setUpClass()
         # Avoid cross test-case contamination:
         translation.deactivate_all()
 
@@ -33,6 +36,8 @@ class TestActiveLanguageLeak(TestCase):
 class TestLocaleMiddlewareLeak(TestCase):
     @classmethod
     def setUpClass(cls):
+        super(TestLocaleMiddlewareLeak, cls).setUpClass()
+
         # Avoid cross test-case contamination:
         translation.deactivate_all()
 
@@ -63,6 +68,8 @@ class TestTranslationSafeTestClient(TestCase):
 
     @classmethod
     def setUpClass(cls):
+        super(TestTranslationSafeTestClient, cls).setUpClass()
+
         # Avoid cross test-case contamination:
         translation.deactivate_all()
 
@@ -94,6 +101,8 @@ class TestTranslationSafeTestClient(TestCase):
 class TestLocalizedTestCase(LocalizedTestCase):
     @classmethod
     def setUpClass(cls):
+        super(TestLocalizedTestCase, cls).setUpClass()
+
         # Avoid cross test-case contamination:
         translation.deactivate_all()
 

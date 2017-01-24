@@ -1,6 +1,8 @@
 # encoding: utf-8
-from __future__ import absolute_import, print_function, unicode_literals
+from __future__ import (absolute_import, division, print_function,
+                        unicode_literals)
 
+import six
 from django.conf import settings
 from django.test import TestCase
 from django.utils import translation
@@ -21,7 +23,7 @@ class LocalizedTestCaseMetaclass(type):
     """
 
     def __new__(meta, class_name, base_classes, class_dict):
-        for method_name, method in class_dict.items():
+        for method_name, method in list(class_dict.items()):
             if not (method_name.startswith("test")
                     and method_name.endswith("localized")):
                 continue
@@ -51,7 +53,7 @@ class LocalizedTestCaseMetaclass(type):
         return inner
 
 
-class LocalizedTestCase(TranslationSafeTestCase):
+class LocalizedTestCase(six.with_metaclass(LocalizedTestCaseMetaclass, TranslationSafeTestCase)):
     """multi-lingual testcase helper
 
     This uses :class:`LocalizedTestCaseMetaclass` to replace any test method
@@ -63,5 +65,3 @@ class LocalizedTestCase(TranslationSafeTestCase):
     the test client will set the HTTP Accept-Language header as expected. For
     convenience, self.active_language will be set appropriately
     """
-
-    __metaclass__ = LocalizedTestCaseMetaclass
