@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name="django-i18n-utils",
-      version="1.6.0",
+      use_scm_version=True,
 
       packages=["django_i18n_utils"],
 
@@ -25,6 +25,6 @@ setup(name="django-i18n-utils",
           'Topic :: Software Development :: Libraries :: Python Modules',
           'Topic :: Software Development :: Localization',
       ],
-      url="https://pypi.python.org/pypi/django-i18n-utils",
-
+      url="https://github.com/acdha/django-i18n-utils",
+      setup_requires=['setuptools_scm'],
       install_requires=['six'])
